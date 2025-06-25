@@ -8,7 +8,7 @@ const HomeBanner = () => {
   return (
     <div className="py-16 md:py-0 bg-shop_light_pink rounded-lg px-10 lg:px-24 flex items-center justify-between">
       <div className="spcae-y-5">
-        <Title>
+        <Title className="mb-2">
           Grab Upto 50% off on <br /> Selected headphones
         </Title>
         <Link

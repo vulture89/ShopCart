@@ -6,7 +6,7 @@ import { Button } from "./ui/button";
 import { cn } from "@/lib/utils";
 
 interface Props {
-  product: Product;
+  product: Product | null | undefined;
   className?: string;
 }
 
