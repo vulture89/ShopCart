@@ -8,7 +8,6 @@ import toast from "react-hot-toast";
 
 const AddToWishlistButton = ({
   product,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   className,
 }: {
   product: Product;
@@ -38,7 +37,7 @@ const AddToWishlistButton = ({
   };
 
   return (
-    <div className={cn("absolute top-2 right-2 z-10")}>
+    <div className={cn("absolute top-2 right-2 z-10", className)}>
       <button
         onClick={handleFavorite}
         className={`p-2.5 rounded-full hover:bg-shop_dark_green/80 hover:text-white hoverEffect  ${existingProduct ? "bg-shop_dark_green/80 text-white" : "bg-lightColor/10"}`}
