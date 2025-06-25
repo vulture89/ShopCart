@@ -1,5 +1,7 @@
 # 🛒 ShopCart
 
+![Demo](./images/demo.png)
+
 ShopCart is a modern e-commerce web application built with [Next.js 15](https://nextjs.org/), [Sanity.io](https://www.sanity.io/) for headless CMS, [Clerk](https://clerk.com/) for authentication, and [Stripe](https://stripe.com/) for payments. It features a clean UI, product management, cart, wishlist, and more.
 
 ## 🚀 Features
