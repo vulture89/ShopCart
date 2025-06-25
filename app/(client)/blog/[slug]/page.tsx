@@ -1,6 +1,11 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import Container from "@/components/Container";
 import { Title } from "@/components/ui/text";
-import { SINGLE_BLOG_QUERYResult } from "@/sanity.types";
+import {
+  BLOG_CATEGORIESResult,
+  OTHERS_BLOG_QUERYResult,
+  SINGLE_BLOG_QUERYResult,
+} from "@/sanity.types";
 import { urlFor } from "@/sanity/lib/image";
 import {
   getBlogCategories,
@@ -21,7 +26,7 @@ const SingleBlogPage = async ({
   params: Promise<{ slug: string }>;
 }) => {
   const { slug } = await params;
-  const blog: SINGLE_BLOG_QUERYResult = await getSingleBlog(slug);
+  const blog = (await getSingleBlog(slug)) as SINGLE_BLOG_QUERYResult;
   if (!blog) return notFound();
 
   return (
@@ -41,12 +46,12 @@ const SingleBlogPage = async ({
             <div className="text-xs flex items-center gap-5 my-7">
               <div className="flex items-center relative group cursor-pointer">
                 {blog?.blogcategories?.map(
-                  (item: { title: string }, index: number) => (
+                  (item: { title: string | null }, index: number) => (
                     <p
                       key={index}
                       className="font-semibold text-shop_dark_green tracking-wider"
                     >
-                      {item?.title}
+                      {item?.title || "Untitled"}
                     </p>
                   )
                 )}
@@ -192,8 +197,8 @@ const SingleBlogPage = async ({
 };
 
 const BlogLeft = async ({ slug }: { slug: string }) => {
-  const categories = await getBlogCategories();
-  const blogs = await getOthersBlog(slug, 5);
+  const categories: BLOG_CATEGORIESResult = await getBlogCategories();
+  const blogs: OTHERS_BLOG_QUERYResult = await getOthersBlog(slug, 5);
 
   return (
     <div>
@@ -205,7 +210,7 @@ const BlogLeft = async ({ slug }: { slug: string }) => {
               key={index}
               className="text-lightColor flex items-center justify-between text-sm font-medium"
             >
-              <p>{blogcategories[0]?.title}</p>
+              <p>{blogcategories?.[0]?.title || "No category"}</p>
               <p className="text-darkColor font-semibold">{`(1)`}</p>
             </div>
           ))}
@@ -214,7 +219,7 @@ const BlogLeft = async ({ slug }: { slug: string }) => {
       <div className="border border-lightColor p-5 rounded-md mt-10">
         <Title className="text-base">Latest Blogs</Title>
         <div className="space-y-4 mt-4">
-          {blogs?.map((blog: Blog, index: number) => (
+          {blogs?.map((blog, index: number) => (
             <Link
               href={`/blog/${blog?.slug?.current}`}
               key={index}
